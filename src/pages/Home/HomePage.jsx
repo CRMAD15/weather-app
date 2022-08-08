@@ -1,5 +1,5 @@
 import React from "react";
-import CityWeather from "../../components/cityWeather";
+import CityWeather from "../../components/cityWeather/cityWeather";
 const HomePage = () => {
     return (
         <div>
