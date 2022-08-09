@@ -1,0 +1,25 @@
+.forecastCard-container {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-bg-variant);
+    height: 200px;
+    width: 150px;
+    padding: 1rem;
+}
+
+.forecastCard-container h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin: 0.4rem 0;
+}
+
+.temperatures {
+    display: flex;
+    justify-content: space-between;
+}
+
+.temperatures h6 {
+    color: var(--color-primary);
+    font-size: 1rem;
+}

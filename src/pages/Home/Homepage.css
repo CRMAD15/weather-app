@@ -1,0 +1,5 @@
+.Homepage {
+    display: grid;
+    grid-template-columns: 30% 65%;
+    gap: 20px;
+}

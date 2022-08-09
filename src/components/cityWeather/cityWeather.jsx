@@ -23,7 +23,7 @@ const CityWeather = () => {
     }, []);
 
 
-    const city = 'Helsinki'
+    const city = 'Madrid'
     const getInfoPerDay = () => {
         weatherService
             .weatherByCity(city)
@@ -33,7 +33,6 @@ const CityWeather = () => {
             .catch(error => console.log(error))
     }
 
-    // const { location, current } = cityWeather
 
 
     const now = new Date(cityWeather?.location.localtime)
@@ -44,14 +43,13 @@ const CityWeather = () => {
     const dayWeek = days[now.getDay()]
 
 
-    console.log(month)
+
     return (
         <>
-
             < div className='container_city' >
                 <div className='finder-button'>
                     <button className='btn'> Seach for places</button>
-                    <GpsFixedIcon />
+                    <GpsFixedIcon className='gps-icon' sx={{ fontSize: 40 }} />
                 </div>
                 {
                     cityWeather ? (
@@ -63,8 +61,8 @@ const CityWeather = () => {
                             <div>
                                 <p>Today: {dayWeek}, {day} {month}</p>
                                 <div className='location-footer'>
-                                    <p className='icon-location'><LocationOnIcon /> </p>
-                                    <p> {cityWeather.location.name}</p>
+                                    <p className='icon-location'><LocationOnIcon sx={{ fontSize: 20 }} /></p>
+                                    <p>{cityWeather.location.name}</p>
                                 </div>
                             </div>
 
