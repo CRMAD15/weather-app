@@ -24,8 +24,6 @@ const Forecast = () => {
 
     }
 
-    console.log(forecastData)
-
     return (
         <div className='days-week'>
 

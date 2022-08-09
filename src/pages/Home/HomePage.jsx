@@ -1,6 +1,7 @@
 import React from "react";
 import CityWeather from "../../components/cityWeather/cityWeather";
 import Forecast from "../../components/forecast/forecast";
+import Hightlights from "../../components/hightlights/hightlights";
 import './Homepage.css'
 const HomePage = () => {
 
@@ -8,7 +9,11 @@ const HomePage = () => {
     return (
         <div className="Homepage">
             <CityWeather />
-            <Forecast />
+            <div>
+                <Forecast />
+                <Hightlights />
+
+            </div>
 
         </div>
     );

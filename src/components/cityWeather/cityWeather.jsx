@@ -9,17 +9,24 @@ import GpsFixedIcon from '@mui/icons-material/GpsFixed';
 const CityWeather = () => {
     const [cityWeather, setCityWeather] = useState();
 
-    // const getPosition = () => {
-    //     navigator.geolocation.getCurrentPosition((position) => {
+    const getPosition = () => {
+        let lat;
+        let lon;
+        navigator.geolocation.getCurrentPosition((position) => {
+            lat = position.coords.latitude
+            lon = position.coords.longitude
+            return lat
+            // console.log("Latitude is :", position.coords.latitude);
+            // console.log("Longitude is :", position.coords.longitude);
+        })
+        return
 
-    //         return (position.coords.latitude, position.coords.longitude)
-    //         console.log("Latitude is :", position.coords.latitude);
-    //         console.log("Longitude is :", position.coords.longitude);
-    //     })
-    // }
+    }
 
+    console.log(getPosition())
     useEffect(() => {
         getInfoPerDay()
+        getPosition()
     }, []);
 
 

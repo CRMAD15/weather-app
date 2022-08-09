@@ -1,0 +1,58 @@
+.main-hightlight-container {
+    height: 60%;
+    width: 100%;
+
+}
+
+.main-hightlight-container>h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-primary-variant);
+    text-align: start;
+    margin: 2rem auto;
+    padding: 0 9rem;
+}
+
+.hightlight-container {
+    margin: 10px;
+    display: grid;
+    justify-content: center;
+    grid-template-columns: 30% 30%;
+    grid-template-rows: 60% 40%;
+    gap: 1.1rem;
+
+}
+
+.hightlight-container>div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    background-color: var(--color-bg-variant);
+}
+
+.navigation-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--color-primary-variant);
+}
+
+.bar-status-center {
+    margin: 0 auto;
+    width: 60%;
+    padding: auto;
+    display: block;
+    justify-content: center;
+
+
+}
+
+.hightlight-container h1 {
+    margin: 0.6rem;
+    font-size: 1.4rem;
+}
+
+.hightlight-container h3 {
+    margin: 0.4rem;
+    font-size: 0.8rem;
+}
