@@ -1,16 +1,17 @@
 .main-hightlight-container {
-    height: 60%;
+    height: 55%;
     width: 100%;
 
 }
 
 .main-hightlight-container>h1 {
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--color-primary-variant);
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--color-primary);
     text-align: start;
     margin: 2rem auto;
     padding: 0 9rem;
+    letter-spacing: 0.1rem;
 }
 
 .hightlight-container {
@@ -55,4 +56,14 @@
 .hightlight-container h3 {
     margin: 0.4rem;
     font-size: 0.8rem;
+}
+
+.footer-hightlights {
+    margin-top: 60px;
+    margin-bottom: 0px;
+    color: var((--color-primary-variant));
+}
+
+.footer-hightlights span {
+    color: white;
 }

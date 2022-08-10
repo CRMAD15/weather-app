@@ -4,40 +4,54 @@ import Loader from '../loader/loader';
 import './cityWeather.css'
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import GpsFixedIcon from '@mui/icons-material/GpsFixed';
-
+import { getUserPosition } from '../../utils/Geolocalization';
 
 const CityWeather = () => {
     const [cityWeather, setCityWeather] = useState();
+    const [geolocation, setGeolocation] = useState([]);
+    const [isCoords, setIsCoords] = useState(false)
 
-    const getPosition = () => {
-        let lat;
-        let lon;
-        navigator.geolocation.getCurrentPosition((position) => {
-            lat = position.coords.latitude
-            lon = position.coords.longitude
-            return lat
-            // console.log("Latitude is :", position.coords.latitude);
-            // console.log("Longitude is :", position.coords.longitude);
-        })
-        return
-
-    }
-
-    console.log(getPosition())
     useEffect(() => {
         getInfoPerDay()
-        getPosition()
-    }, []);
+    }, [isCoords]);
 
-
-    const city = 'Madrid'
-    const getInfoPerDay = () => {
-        weatherService
-            .weatherByCity(city)
-            .then(({ data }) => {
-                setCityWeather(data)
+    const finaPosition = () => {
+        getUserPosition()
+            .then(res => {
+                setIsCoords(true)
+                setGeolocation(res)
             })
-            .catch(error => console.log(error))
+            .catch(err => console.log(err))
+    }
+
+    // const city = 'Madrid'
+    // const getInfoPerDay = () => {
+    //     weatherService
+    //         .weatherByCity(city)
+    //         .then(({ data }) => {
+    //             setCityWeather(data)
+    //         })
+    //         .catch(error => console.log(error))
+    // }
+
+
+
+    const getInfoPerDay = () => {
+
+        let lat;
+        let lon;
+        if (geolocation) {
+            lat = geolocation[0];
+            lon = geolocation[1];
+            weatherService
+                .weatherByLatLon(lat, lon)
+                .then(({ data }) => {
+                    setIsCoords(false)
+
+                    setCityWeather(data)
+                })
+                .catch(error => console.log(error))
+        }
     }
 
 
@@ -55,9 +69,14 @@ const CityWeather = () => {
         <>
             < div className='container_city' >
                 <div className='finder-button'>
-                    <button className='btn'> Seach for places</button>
-                    <GpsFixedIcon className='gps-icon' sx={{ fontSize: 40 }} />
+                    <button className='btn' > Seach for places</button>
+                    <GpsFixedIcon className='gps-icon' sx={{ fontSize: 40 }} onClick={finaPosition} />
                 </div>
+                {geolocation ?
+
+                    <h4>{geolocation[0]} {geolocation[1]}</h4> : <h4>no hay coords</h4>
+
+                }
                 {
                     cityWeather ? (
 

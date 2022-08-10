@@ -8,7 +8,7 @@
 
 }
 
-.bar-status-container .progress-bar {
+.progress-bar {
     position: absolute;
     height: 100%;
     background-color: yellow;

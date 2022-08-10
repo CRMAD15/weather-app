@@ -26,37 +26,39 @@ const Hightlights = () => {
     const statusHumedity = weatherData?.current.humidity + '%'
 
     return (
-        <div className='main-hightlight-container' >
-            <h1>Today's Hightlights</h1>
-            <div className="hightlight-container">
-                <div className='wind-status'>
-                    <h3>Wind status</h3>
-                    <h1>{weatherData?.current.wind_kph} kph</h1>
-                    <div className='navigation-icon'>
-                        <NavigationIcon fontSize='small' style={{ transform: `rotate(${weatherData?.current.wind_degree}deg)` }} />
-                        <h3>{weatherData?.current.wind_dir}</h3>
-                    </div>
+        <div>
+            <div className='main-hightlight-container' >
+                <h1>Today's Hightlights</h1>
+                <div className="hightlight-container">
+                    <div className='wind-status'>
+                        <h3>Wind status</h3>
+                        <h1>{weatherData?.current.wind_kph} kph</h1>
+                        <div className='navigation-icon'>
+                            <NavigationIcon fontSize='small' style={{ transform: `rotate(${weatherData?.current.wind_degree}deg)` }} />
+                            <h3>{weatherData?.current.wind_dir}</h3>
+                        </div>
 
 
-                </div>
-                <div className="humidity-status">
-                    <h3>Humidity</h3>
-                    <h1>{weatherData?.current.humidity}%</h1>
-                    <div className='bar-status-center'>
-                        <BarStatus
-                            status={statusHumedity} />
                     </div>
-                </div>
-                <div>
-                    <h3>Visivility</h3>
-                    <h1>{weatherData?.current.vis_km} km</h1>
-                </div>
-                <div>
-                    <h3>Air Pressure</h3>
-                    <h1>{weatherData?.current.pressure_mb} mb</h1>
+                    <div className="humidity-status">
+                        <h3>Humidity</h3>
+                        <h1>{weatherData?.current.humidity}%</h1>
+                        <div className='bar-status-center'>
+                            <BarStatus
+                                status={statusHumedity} />
+                        </div>
+                    </div>
+                    <div>
+                        <h3>Visivility</h3>
+                        <h1>{weatherData?.current.vis_km} km</h1>
+                    </div>
+                    <div>
+                        <h3>Air Pressure</h3>
+                        <h1>{weatherData?.current.pressure_mb} mb</h1>
+                    </div>
                 </div>
             </div>
-
+            <p className='footer-hightlights'>Created by <span>Cristian Calderón</span></p>
         </div>
     );
 }
