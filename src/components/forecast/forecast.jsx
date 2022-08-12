@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import weatherService from "../../services/weather.service";
 import ForecastCard from '../forecastCard/forecastCard';
+import Loader from '../loader/loader';
 import './forecast.css'
 const Forecast = () => {
 
@@ -23,19 +24,23 @@ const Forecast = () => {
             .catch(err => console.log(err))
 
     }
+    console.log(forecastData)
 
     return (
         <div className='days-week'>
-
             {
-                forecastData?.map((forecastDay, idx) => {
-                    return (
-                        <ForecastCard
-                            key={idx}
-                            {...forecastDay}
-                        />
+                !forecastData ?
+                    <Loader /> :
+                    forecastData.map((forecastDay, idx) => {
+                        return (
+                            <ForecastCard
+                                key={idx}
+                                {...forecastDay}
+                            />
+                        )
+                    }
                     )
-                })
+
 
             }
 

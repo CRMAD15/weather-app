@@ -46,8 +46,6 @@ const CityWeather = () => {
             weatherService
                 .weatherByLatLon(lat, lon)
                 .then(({ data }) => {
-                    setIsCoords(false)
-
                     setCityWeather(data)
                 })
                 .catch(error => console.log(error))
