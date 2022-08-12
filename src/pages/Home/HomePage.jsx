@@ -11,11 +11,11 @@ const HomePage = () => {
         <div className="Homepage">
             {/* <CityWeather /> */}
             <FormSearch />
-            <div>
+            {/* <div>
                 <Forecast />
                 <Hightlights />
 
-            </div>
+            </div> */}
 
         </div>
     );

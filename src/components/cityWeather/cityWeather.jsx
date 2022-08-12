@@ -8,7 +8,7 @@ import { getUserPosition } from '../../utils/Geolocalization';
 
 const CityWeather = () => {
     const [cityWeather, setCityWeather] = useState();
-    const [geolocation, setGeolocation] = useState([]);
+    const [geolocation, setGeolocation] = useState([40.41684, -3.70377]);
     const [isCoords, setIsCoords] = useState(false)
 
     useEffect(() => {
@@ -52,16 +52,16 @@ const CityWeather = () => {
         }
     }
 
+    console.log(cityWeather)
 
+    // const now = new Date(cityWeather?.location.localtime)
+    // const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', ' Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dic']
+    // const month = months[now.getMonth()]
+    // const day = now.getDate()
+    // const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+    // const dayWeek = days[now.getDay()]
 
-    const now = new Date(cityWeather?.location.localtime)
-    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', ' Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dic']
-    const month = months[now.getMonth()]
-    const day = now.getDate()
-    const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
-    const dayWeek = days[now.getDay()]
-
-
+    let iconUrl = `https://openweathermap.org/img/wn/${cityWeather?.weather[0].icon}@4x.png`
 
     return (
         <>
@@ -70,16 +70,26 @@ const CityWeather = () => {
                     <button className='btn' > Seach for places</button>
                     <GpsFixedIcon className='gps-icon' sx={{ fontSize: 40 }} onClick={finaPosition} />
                 </div>
-                {geolocation ?
 
-                    <h4>{geolocation[0]} {geolocation[1]}</h4> : <h4>no hay coords</h4>
+                <h4>{geolocation[0]} {geolocation[1]}</h4>
 
-                }
+
                 {
                     cityWeather ? (
 
                         < div className='main-info' >
-                            <img src={cityWeather.current.condition.icon} alt='logo-weather' />
+                            <img src={iconUrl} alt='logo-weather' />
+                            <h1>{cityWeather.main.temp}<span className='grades'>ºC</span></h1>
+                            <h3>{cityWeather.weather[0].main}</h3>
+                            <div>
+                                <p>Description: {cityWeather.weather[0].description}</p>
+                                <div className='location-footer'>
+                                    <p className='icon-location'><LocationOnIcon sx={{ fontSize: 20 }} /></p>
+                                    <p>{cityWeather.name}</p>
+                                </div>
+                            </div>
+
+                            {/* <img src={cityWeather.current.condition.icon} alt='logo-weather' />
                             <h1>{cityWeather.current.temp_c}<span className='grades'>ºC</span></h1>
                             <h3>{cityWeather.current.condition.text}</h3>
                             <div>
@@ -88,7 +98,7 @@ const CityWeather = () => {
                                     <p className='icon-location'><LocationOnIcon sx={{ fontSize: 20 }} /></p>
                                     <p>{cityWeather.location.name}</p>
                                 </div>
-                            </div>
+                            </div> */}
 
 
                         </div >
