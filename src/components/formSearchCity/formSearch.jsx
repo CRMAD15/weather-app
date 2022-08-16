@@ -1,7 +1,9 @@
-import { ErrorMessage, Field, Form, Formik } from 'formik';
-import React, { useEffect, useState } from 'react';
-import * as Yup from 'yup'
+import React, { useRef, useState } from 'react';
 import weatherService from '../../services/weather.service';
+import { Button, Modal } from '@mui/material';
+import { citiesFinded } from '../../utils/functions';
+import * as Yup from 'yup'
+
 
 const findCitySchema = Yup.object().shape(
     {
@@ -9,31 +11,18 @@ const findCitySchema = Yup.object().shape(
             .required('City name is required')
     }
 )
-const FormSearch = () => {
+
+const FormSearch = ({ open, onClose }) => {
 
     const [nameCity, setNameCity] = useState('');
     const [cityData, setCityData] = useState();
-
-
-
-    let listCities = []
-    useEffect(() => {
-        getCityInfo()
-    }, [nameCity])
-
-
-    const initialCredential = {
-        city: ''
-    };
 
     const getCityInfo = () => {
         if (nameCity) {
             weatherService
                 .weatherByCity(nameCity)
                 .then(({ data }) => {
-
                     setCityData(data)
-
                     if (localStorage.getItem('data') === null) {
                         localStorage.setItem('data', '[]')
                     }
@@ -46,92 +35,67 @@ const FormSearch = () => {
                     alert('The name city doesn´t exist')
                 })
                 .finally(() => console.log('Finished on one way or the other way'))
-
-        }
-
-
-    }
-
-
-
-
-    const citiesFinded = (arr) => {
-        let uniqueElements = []
-
-        if (arr) {
-            let lastCities = arr.filter((eachCity) => {
-                const isDuplicate = uniqueElements.includes(eachCity)
-                if (!isDuplicate) {
-                    uniqueElements.push(eachCity)
-                    return true
-                }
-                return false
-            })
-            console.log(lastCities)
-            let smallArr = lastCities.slice(-4)
-            let finalArr = smallArr.reverse()
-            return finalArr
         }
     }
 
     let infoLocalStorage = JSON.parse(localStorage.getItem('data'))
 
-    citiesFinded(infoLocalStorage)
-
     let finalArr = citiesFinded(infoLocalStorage)
-    console.log(finalArr)
-    return (
+    const cityValue = useRef('')
+
+
+    const handleSelect = (e) => {
+        setNameCity(e.target.value)
+    }
+    console.log(nameCity)
+
+    const body = (
         <div>
             <h4>Introduce a City</h4>
-            <Formik
-                initialValues={initialCredential}
-                validationSchema={findCitySchema}
-                onSubmit={async (values) => {
-                    setNameCity(values.city)
-
-                }}
-            >
-                {/* We get props from Formik */}
-                {
-                    props => {
-                        const {
-                            values,
-                            touched,
-                            errors,
-                            isSubmitting,
-                            handleChange,
-                            handleBlur
-                        } = props
-
+            <form onSubmit={getCityInfo}>
+                <input ref={cityValue} id='city'
+                    type="text"
+                    className='form-control form-control-lg'
+                    required placeholder='city'
+                    onChange={handleSelect}
+                    value={nameCity ? nameCity : ''} />
+                <Button type="submit" >Find..</Button>
+            </form>
+            < h4 > Latest Searchs</h4>
+            {
+                infoLocalStorage ?
+                    finalArr?.map((city, idx) => {
                         return (
-                            <Form>
-                                <label htmlFor="city">City</label>
-                                <Field id='city' name='city' placeholder='Introduce a new city' />
-                                {/* Errors city */}
-                                {
-                                    errors.city && touched.city && (
-                                        <ErrorMessage style={{ color: 'red' }} name='city' component='div'></ErrorMessage>
-                                    )
-                                }
-                            </Form>
+                            <div key={idx}>
+                                <h4 onClick={() => {
+                                    setNameCity(city)
+                                }}
+                                    ref={cityValue}
+                                >
+                                    {city}
+                                </h4>
+                            </div>
                         )
-                    }
-
-                }
-
-            </Formik>
-            <h4>Latest Searchs</h4>
-            {infoLocalStorage ?
-                finalArr?.map((city, idx) => {
-                    return (
-                        <h4 key={idx}>{city}</h4>
-                    )
-                }) :
-                <h4>There is no searchs</h4>
+                    }) :
+                    <h4>There is no searchs</h4>
             }
+        </div >
+    )
 
-        </div>
+
+    return (
+        <Modal
+            open={open}
+            onClose={onclose}
+        >
+            {body}
+        </Modal>
     );
 }
 
+
+
 export default FormSearch;
+
+
+
