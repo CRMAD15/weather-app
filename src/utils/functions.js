@@ -12,7 +12,7 @@ export const citiesFinded = (arr) => {
             }
             return false
         })
-        let smallArr = lastCities.slice(0, 8)
+        let smallArr = lastCities.slice(0, 4)
         return smallArr
     }
 

@@ -19,7 +19,7 @@ class WeatherServices {
         return this.api.get(`/weather?lat=${lat}&lon=${lon}&units=metric&appid=${process.env.REACT_APP_API_WEATHER_KEY}`)
     };
     weatherByCity = (city) => {
-        return this.api.get(`/weather?q=${city}&appid=${process.env.REACT_APP_API_WEATHER_KEY}`)
+        return this.api.get(`/weather?q=${city}&units=metric&appid=${process.env.REACT_APP_API_WEATHER_KEY}`)
     };
 
 }

@@ -1,80 +1,40 @@
-import React, { useEffect, useState, useRef } from 'react';
-import weatherService from '../../services/weather.service';
+import React, { useEffect, useState, useRef, useContext } from 'react';
 import Loader from '../loader/loader';
 import './cityWeather.css'
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import GpsFixedIcon from '@mui/icons-material/GpsFixed';
-import { getUserPosition } from '../../utils/Geolocalization';
-import { Modal } from '@mui/material';
 import FormSearch from '../formSearchCity/formSearch';
-import Modals from '../Modals';
+import { CityContext } from '../../context/cityContext';
 
 
 const CityWeather = () => {
-    const [cityWeather, setCityWeather] = useState();
-    const [geolocation, setGeolocation] = useState([40.41684, -3.70377]);
-    const [isCoords, setIsCoords] = useState(false)
 
-    useEffect(() => {
-        getInfoPerDay()
-    }, [isCoords]);
+    const { nameCity, cityWeather, finaPosition, setNameCity, getInfoPerDay } = useContext(CityContext);
 
-    const finaPosition = () => {
-        getUserPosition()
-            .then(res => {
-                setIsCoords(true)
-                setGeolocation(res)
-            })
-            .catch(err => console.log(err))
-    }
-
-    const getInfoPerDay = () => {
-
-        let lat;
-        let lon;
-        if (geolocation) {
-            lat = geolocation[0];
-            lon = geolocation[1];
-            weatherService
-                .weatherByLatLon(lat, lon)
-                .then(({ data }) => {
-                    setCityWeather(data)
-                })
-                .catch(error => console.log(error))
-        }
-    }
-
-
+    console.log('a ver si cambia el nombre la ciudad', nameCity)
 
     let iconUrl = `https://openweathermap.org/img/wn/${cityWeather?.weather[0].icon}@4x.png`
 
     //Modal window close and open
-    const [open, setOpen] = useState(false);
-
-    const refModal = useRef();
-
-
     const [isOpen, setIsOpen] = useState(false)
     const close = () => {
         setIsOpen(!isOpen)
     }
+    console.log(cityWeather)
     return (
         <>
             < div className='container_city' >
                 <div className='finder-button'>
                     <button className='btn' onClick={() => close(true)} > Seach for places</button>
-
                     <FormSearch
                         open={isOpen}
                         onClose={() => close()}
-
+                        setNameCity={setNameCity}
+                        getInfoPerDay={getInfoPerDay}
+                        nameCity={nameCity}
                     />
-
-                    <GpsFixedIcon className='gps-icon' sx={{ fontSize: 40 }} onClick={finaPosition} />
+                    <GpsFixedIcon className='gps-icon' sx={{ fontSize: 30 }} onClick={finaPosition} />
                 </div>
-
-                <h4>{geolocation[0]} {geolocation[1]}</h4>
-
                 {
                     cityWeather ? (
 
@@ -94,10 +54,10 @@ const CityWeather = () => {
                         <Loader />
                 }
             </div >
-
         </>
 
     );
 
 }
+
 export default CityWeather;

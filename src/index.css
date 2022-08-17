@@ -15,6 +15,8 @@
   --color-bg-variant: #1E213A;
   --color-primary: #E7E7EB;
   --color-primary-variant: #b7b7b799;
+  --color-bg-trans: rgb(16, 14, 29, 0.5);
+  --color-primary-trans: rgb(231, 231, 235, 0.5);
 }
 
 body {
