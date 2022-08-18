@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Button, Modal } from '@mui/material';
 import { citiesFinded } from '../../utils/functions';
 import './formSearch.css'
@@ -6,19 +6,20 @@ import { CityContext } from '../../context/cityContext';
 
 
 
-const FormSearch = ({ open, onClose, nameCity, setNameCity, getInfoPerDay }) => {
+const FormSearch = ({ open, onClose, getInfoPerDay }) => {
 
+    const [refCity, setRefCity] = useState('')
 
-    const { storeCityName } = useContext(CityContext)
+    const { storeCityName, setCity } = useContext(CityContext)
 
     let infoLocalStorage = JSON.parse(localStorage.getItem('data'))
     let finalArr = citiesFinded(infoLocalStorage)
 
     const handleSelect = (e) => {
         e.preventDefault();
-        setNameCity(e.target.value)
-        storeCityName(e.target.value)
+        setRefCity(e.target.value)
     }
+    console.log(refCity)
     const body = (
         <div className='form-container' >
             <button className='form-btn' onClick={onClose}>X</button>
@@ -28,13 +29,16 @@ const FormSearch = ({ open, onClose, nameCity, setNameCity, getInfoPerDay }) => 
                 e.preventDefault()
                 getInfoPerDay()
                 onClose()
-                setNameCity('')
+                storeCityName(refCity)
+                setCity(refCity)
+
             }}>
                 <input id='city'
                     type="text"
                     className='form-control form-control-lg'
                     onChange={handleSelect}
-                    value={nameCity ? nameCity : ''}
+                    placeholder='New city'
+                    value={refCity ? refCity : ''}
                 />
                 <Button type="submit" >Find..</Button>
             </form>
@@ -48,7 +52,8 @@ const FormSearch = ({ open, onClose, nameCity, setNameCity, getInfoPerDay }) => 
                                 return (
                                     <div key={idx}>
                                         <h4 onClick={() => {
-                                            setNameCity(city)
+                                            setRefCity(city)
+                                            setCity(city)
                                         }}
                                         >
                                             {city}
@@ -63,7 +68,6 @@ const FormSearch = ({ open, onClose, nameCity, setNameCity, getInfoPerDay }) => 
             }
         </div >
     )
-
     return (
         <Modal
             open={open}
@@ -77,6 +81,3 @@ const FormSearch = ({ open, onClose, nameCity, setNameCity, getInfoPerDay }) => 
 }
 
 export default FormSearch;
-
-
-

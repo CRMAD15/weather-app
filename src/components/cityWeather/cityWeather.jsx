@@ -5,13 +5,74 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import GpsFixedIcon from '@mui/icons-material/GpsFixed';
 import FormSearch from '../formSearchCity/formSearch';
 import { CityContext } from '../../context/cityContext';
+import { getUserPosition } from '../../utils/Geolocalization'
+import weatherService from '../../services/weather.service';
 
 
 const CityWeather = () => {
 
-    const { nameCity, cityWeather, finaPosition, setNameCity, getInfoPerDay } = useContext(CityContext);
+    const [cityWeather, setCityWeather] = useState();
+    const [geolocation, setGeolocation] = useState([51.507351, -0.127758]);
+    // const [isCoords, setIsCoords] = useState(false)
 
-    console.log('a ver si cambia el nombre la ciudad', nameCity)
+
+    const { city, setCity, removeCityname } = useContext(CityContext);
+
+    console.log(city)
+
+
+
+    const finaPosition = () => {
+        getUserPosition()
+            .then(res => {
+                // setIsCoords(true)
+                setGeolocation(res)
+                setCity()
+                removeCityname()
+            })
+            .catch(err => console.log(err))
+            .finally(() => console.log('Finished get coords'))
+    }
+
+    const getInfoPerDay = () => {
+        if (!city) {
+            let lat;
+            let lon;
+            lat = geolocation[0];
+            lon = geolocation[1];
+            weatherService
+                .weatherByLatLon(lat, lon)
+                .then(({ data }) => {
+                    setCityWeather(data)
+                    // setIsCoords(false)
+                })
+                .catch(error => console.log(error))
+                .finally(() => console.log('Finished promise by coords'))
+
+        } else {
+            weatherService
+                .weatherByCity(city)
+                .then(({ data }) => {
+                    setCityWeather(data)
+                    setGeolocation([])
+                    if (localStorage.getItem('data') === null) {
+                        localStorage.setItem('data', '[]')
+                    }
+                    let previousData = JSON.parse(localStorage.getItem('data'))
+                    previousData.push(data.name)
+                    localStorage.setItem('data', JSON.stringify(previousData))
+                })
+                .catch(err => {
+                    alert(`${city} no existe`)
+                })
+                .finally(() => console.log('Finished promise by city'))
+        }
+    }
+    
+    //useEffect mountain component
+    useEffect(() => {
+        getInfoPerDay()
+    }, [city]);
 
     let iconUrl = `https://openweathermap.org/img/wn/${cityWeather?.weather[0].icon}@4x.png`
 
@@ -20,7 +81,7 @@ const CityWeather = () => {
     const close = () => {
         setIsOpen(!isOpen)
     }
-    console.log(cityWeather)
+
     return (
         <>
             < div className='container_city' >
@@ -29,9 +90,7 @@ const CityWeather = () => {
                     <FormSearch
                         open={isOpen}
                         onClose={() => close()}
-                        setNameCity={setNameCity}
                         getInfoPerDay={getInfoPerDay}
-                        nameCity={nameCity}
                     />
                     <GpsFixedIcon className='gps-icon' sx={{ fontSize: 30 }} onClick={finaPosition} />
                 </div>
