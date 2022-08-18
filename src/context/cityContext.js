@@ -18,7 +18,6 @@ function CityNameProviderWraper(props) {
     useEffect(() => {
         getCityName()
     }, [city])
-    console.log('---------------------', city)
     return (
         <CityContext.Provider value={{ city, storeCityName, setCity, removeCityname }}>
             {props.children}

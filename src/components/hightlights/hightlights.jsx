@@ -12,10 +12,10 @@ const Hightlights = () => {
     const { city } = useContext(CityContext);
 
 
-
+    console.log(city)
     useEffect(() => {
         getWeatgerPerDay()
-    }, []);
+    }, [city]);
 
 
     const getWeatgerPerDay = () => {
@@ -28,8 +28,6 @@ const Hightlights = () => {
                 })
                 .catch(err => console.log(err))
                 .finally(() => console.log('Finished promise in hightlights'))
-
-
         }
 
 
@@ -67,7 +65,7 @@ const Hightlights = () => {
                             </div>
                             <div>
                                 <h3>Air Pressure</h3>
-                                <h1>{weatherData.pressure} mb</h1>
+                                <h1>{weatherData.main.pressure} mb </h1>
                             </div>
                         </div>
                     </div>
