@@ -1,46 +1,50 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import weatherService from "../../services/weather.service";
 import ForecastCard from '../forecastCard/forecastCard';
 import Loader from '../loader/loader';
 import './forecast.css'
-const Forecast = () => {
+import { CityContext } from '../../context/cityContext';
+import { divideDaysForescast } from '../../utils/ChangeInfoFromApi';
 
+const Forecast = () => {
+    const { city } = useContext(CityContext)
 
     const [forecastData, setForecastData] = useState([])
 
     useEffect(() => {
         forecast()
-    }, []);
-    const city = 'Madrid'
-    const days = 5
+    }, [city]);
 
     const forecast = () => {
-        weatherService
-            .getForecast(city, days)
-            .then(({ data }) => {
-                setForecastData(data.forecast.forecastday)
+        if (city) {
+            weatherService
+                .getForecast(city)
+                .then(({ data }) => {
+                    setForecastData(data)
 
-            })
-            .catch(err => console.log(err))
-
+                })
+                .catch(err => console.log(err))
+        }
     }
-    console.log(forecastData)
 
+    let realValuesOfForecast = divideDaysForescast(forecastData.list)
     return (
         <div className='days-week'>
+
             {
-                !forecastData ?
+                !realValuesOfForecast ?
                     <Loader /> :
-                    forecastData.map((forecastDay, idx) => {
+                    realValuesOfForecast.map((forecastDay, idx) => {
                         return (
                             <ForecastCard
                                 key={idx}
-                                {...forecastDay}
+                                forecastDay={forecastDay}
                             />
+
+
                         )
                     }
                     )
-
 
             }
 

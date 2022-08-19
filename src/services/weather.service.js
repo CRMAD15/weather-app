@@ -12,6 +12,10 @@ class WeatherServices {
         return this.api.get(`/weather?q=${city}&units=metric&appid=${process.env.REACT_APP_API_WEATHER_KEY}`)
     };
 
+    getForecast = (city) => {
+        return this.api.get(`/forecast?q=${city}&units=metric&appid=${process.env.REACT_APP_API_WEATHER_KEY}`)
+    }
+
 }
 
 const weatherService = new WeatherServices();

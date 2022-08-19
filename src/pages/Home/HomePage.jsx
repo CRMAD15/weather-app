@@ -32,8 +32,10 @@ const HomePage = () => {
                 finaPosition={finaPosition}
             />
             <div>
-                {/* <Forecast /> */}
-                <Hightlights />
+                <Forecast />
+                <Hightlights
+                    geolocation={geolocation}
+                />
 
             </div>
 

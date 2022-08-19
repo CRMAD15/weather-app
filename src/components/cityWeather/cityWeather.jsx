@@ -6,15 +6,11 @@ import GpsFixedIcon from '@mui/icons-material/GpsFixed';
 import FormSearch from '../formSearchCity/formSearch';
 import { CityContext } from '../../context/cityContext';
 import weatherService from '../../services/weather.service';
-import { getUserPosition } from '../../utils/Geolocalization'
-
 
 
 const CityWeather = ({ geolocation, setGeolocation, finaPosition }) => {
 
     const [cityWeather, setCityWeather] = useState();
-    const [isCoords, setIsCoords] = useState(false);
-
 
     const { city, setCity, removeCityname } = useContext(CityContext);
 
@@ -28,7 +24,6 @@ const CityWeather = ({ geolocation, setGeolocation, finaPosition }) => {
                 .weatherByLatLon(lat, lon)
                 .then(({ data }) => {
                     setCityWeather(data)
-                    setIsCoords(true)
                 })
                 .catch(error => console.log(error))
                 .finally(() => console.log('Finished promise by coords'))
@@ -39,9 +34,8 @@ const CityWeather = ({ geolocation, setGeolocation, finaPosition }) => {
                 .then(({ data }) => {
                     setCityWeather(data)
                     setGeolocation([])
-                    setIsCoords(false)
 
-                    //Save data of cities from searchs in local storage
+                    //Save data of cities of searchs in local storage
                     if (localStorage.getItem('data') === null) {
                         localStorage.setItem('data', '[]')
                     }
@@ -51,24 +45,19 @@ const CityWeather = ({ geolocation, setGeolocation, finaPosition }) => {
                 })
                 .catch(err => {
                     alert(`${city} no existe`)
+                    removeCityname()
                 })
                 .finally(() => console.log('Finished promise by city'))
         }
     }
 
     //useEffect mountain component
-    // useEffect(() => {
-    //     getInfoPerDay()
-    // }, [city]);
-
     useEffect(() => {
         getInfoPerDay()
     }, [city]);
 
 
-    console.log(isCoords)
     let iconUrl = `https://openweathermap.org/img/wn/${cityWeather?.weather[0].icon}@4x.png`
-    console.log(geolocation)
     //Modal window close and open
     const [isOpen, setIsOpen] = useState(false)
     const close = () => {
@@ -79,7 +68,13 @@ const CityWeather = ({ geolocation, setGeolocation, finaPosition }) => {
         <>
             < div className='container_city' >
                 <div className='finder-button'>
-                    <button className='btn' onClick={() => close(true)} > Seach for places</button>
+                    <button className='btn'
+                        onClick={() => {
+                            close(true)
+                        }}
+
+                    >
+                        Seach for places</button>
                     <FormSearch
                         open={isOpen}
                         onClose={() => close()}

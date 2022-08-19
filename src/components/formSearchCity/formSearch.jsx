@@ -19,18 +19,19 @@ const FormSearch = ({ open, onClose, getInfoPerDay }) => {
         e.preventDefault();
         setRefCity(e.target.value)
     }
-    console.log(refCity)
+
     const body = (
         <div className='form-container' >
             <button className='form-btn' onClick={onClose}>X</button>
 
             <h4>Introduce a City</h4>
-            <form onSubmit={(e) => {
+            <form id="create-course-form" onSubmit={(e) => {
                 e.preventDefault()
                 getInfoPerDay()
                 onClose()
                 storeCityName(refCity)
                 setCity(refCity)
+
 
             }}>
                 <input id='city'
