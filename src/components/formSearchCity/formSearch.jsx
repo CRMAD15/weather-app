@@ -36,12 +36,12 @@ const FormSearch = ({ open, onClose, getInfoPerDay }) => {
             }}>
                 <input id='city'
                     type="text"
-                    className='form-control form-control-lg'
+                    className='form-control'
                     onChange={handleSelect}
                     placeholder='New city'
                     value={refCity ? refCity : ''}
                 />
-                <Button type="submit" >Find..</Button>
+                <button className='btn-form' type="submit" >Find..</button>
             </form>
             {
                 infoLocalStorage ?
@@ -52,13 +52,14 @@ const FormSearch = ({ open, onClose, getInfoPerDay }) => {
                             finalArr?.map((city, idx) => {
                                 return (
                                     <div key={idx}>
-                                        <h4 onClick={() => {
-                                            setRefCity(city)
-                                            setCity(city)
-                                        }}
+                                        <h4 className='list-cities'
+                                            onClick={() => {
+                                                setRefCity(city)
+                                                setCity(city)
+                                            }}
                                         >
                                             {city}
-                                        </h4>
+                                        </h4 >
                                     </div>
                                 )
                             })

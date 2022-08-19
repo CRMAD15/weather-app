@@ -26,3 +26,56 @@
     cursor: pointer;
     color: var(--color-bg);
 }
+
+.list-cities {
+    background-color: #20233f;
+    color: var(--color-primary-variant);
+    padding: 1rem 0;
+    margin: 1rem 3rem;
+    border: 1px solid #232644;
+    -webkit-box-shadow: inset 0px 0px 61px 0px rgba(28, 28, 28, 0.62);
+    -moz-box-shadow: inset 0px 0px 61px 0px rgba(28, 28, 28, 0.62);
+    box-shadow: inset 0px 0px 61px 0px rgba(40, 40, 40, 0.62);
+}
+
+.list-cities:hover {
+    background-color: #30355e;
+    color: var(--color-primary);
+    border: 3px solid rgb(0, 0, 0, .2);
+
+}
+
+.form-control {
+    height: 2.5rem;
+    font-size: small;
+    margin: .5rem 1rem;
+    text-align: center;
+}
+
+.btn-form {
+    height: 2.5rem;
+    padding: 0 1rem;
+    box-shadow: inset 0px 1px 0px 0px #bbdaf7;
+    background: linear-gradient(to bottom, #4d79a5 5%, #1c4c7c 100%);
+    background-color: #4b759e;
+    border-radius: 6px;
+    border: 1px solid #84bbf3;
+    display: inline-block;
+    cursor: pointer;
+    color: #ffffff;
+    font-family: Arial;
+    font-size: 15px;
+    font-weight: bold;
+    text-decoration: none;
+    text-shadow: 0px 1px 0px #528ecc;
+}
+
+.btn-form:hover {
+    background: linear-gradient(to bottom, #378de5 5%, #79bbff 100%);
+    background-color: #378de5;
+}
+
+.btn-form:active {
+    position: relative;
+    top: 1px;
+}

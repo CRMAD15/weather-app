@@ -5,6 +5,7 @@ import { getDaysWeekForecast } from '../../utils/DateFunciton';
 const ForecastCard = ({ forecastDay }) => {
 
     let firstArr = forecastDay[0]
+    let secondArr = forecastDay[2]
 
 
     const days = getDaysWeekForecast(firstArr.dt_txt)
@@ -13,7 +14,7 @@ const ForecastCard = ({ forecastDay }) => {
 
 
     console.log(firstArr.weather.icon)
-    let iconUrl = `https://openweathermap.org/img/wn/${firstArr.weather[0].icon}@2x.png`
+    let iconUrl = `https://openweathermap.org/img/wn/${secondArr.weather[0].icon}@2x.png`
 
     return (
         <div className='forecastCard-container'>
