@@ -14,6 +14,10 @@ class WeatherServices {
 
     getForecast = (city) => {
         return this.api.get(`/forecast?q=${city}&units=metric&appid=${process.env.REACT_APP_API_WEATHER_KEY}`)
+    };
+
+    getForecastByCoords = (lat, lon) => {
+        return this.api.get(`/forecast?lat=${lat}&lon=${lon}&units=metric&appid=${process.env.REACT_APP_API_WEATHER_KEY}`)
     }
 
 }

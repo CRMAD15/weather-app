@@ -8,10 +8,9 @@ import { CityContext } from '../../context/cityContext';
 import weatherService from '../../services/weather.service';
 
 
-const CityWeather = ({ geolocation, setGeolocation, finaPosition }) => {
+const CityWeather = ({ geolocation, setGeolocation, finalPosition }) => {
 
     const [cityWeather, setCityWeather] = useState();
-
     const { city, setCity, removeCityname } = useContext(CityContext);
 
     const getInfoPerDay = () => {
@@ -83,7 +82,7 @@ const CityWeather = ({ geolocation, setGeolocation, finaPosition }) => {
                     <GpsFixedIcon className='gps-icon' sx={{ fontSize: 30 }} onClick={() => {
                         removeCityname()
                         setCity('')
-                        finaPosition()
+                        finalPosition()
                         getInfoPerDay()
 
                     }} />

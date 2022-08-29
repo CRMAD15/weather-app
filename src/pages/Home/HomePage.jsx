@@ -14,7 +14,7 @@ const HomePage = () => {
 
     const [geolocation, setGeolocation] = useState(initialStates);
 
-    const finaPosition = () => {
+    const finalPosition = () => {
         getUserPosition()
             .then(res => {
                 setGeolocation(res)
@@ -29,10 +29,12 @@ const HomePage = () => {
             <CityWeather
                 geolocation={geolocation}
                 setGeolocation={setGeolocation}
-                finaPosition={finaPosition}
+                finalPosition={finalPosition}
             />
             <div>
-                <Forecast />
+                <Forecast
+                    geolocation={geolocation}
+                />
                 <Hightlights
                     geolocation={geolocation}
                 />
