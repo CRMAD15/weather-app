@@ -55,7 +55,6 @@ const FormSearch = ({ open, onClose, getInfoPerDay }) => {
                                         <h4 className='list-cities'
                                             onClick={() => {
                                                 setRefCity(city)
-                                                setCity(city)
                                             }}
                                         >
                                             {city}

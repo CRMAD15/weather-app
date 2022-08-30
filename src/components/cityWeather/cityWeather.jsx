@@ -8,11 +8,12 @@ import { CityContext } from '../../context/cityContext';
 import weatherService from '../../services/weather.service';
 
 
-const CityWeather = ({ geolocation, setGeolocation, finalPosition }) => {
+const CityWeather = ({ geolocation, setGeolocation, finalPosition, units }) => {
 
     const [cityWeather, setCityWeather] = useState();
     const { city, setCity, removeCityname } = useContext(CityContext);
 
+    // console.log(units)
     const getInfoPerDay = () => {
         if (!city) {
             let lat;
@@ -20,7 +21,7 @@ const CityWeather = ({ geolocation, setGeolocation, finalPosition }) => {
             lat = geolocation[0];
             lon = geolocation[1];
             weatherService
-                .weatherByLatLon(lat, lon)
+                .weatherByLatLon(lat, lon, units)
                 .then(({ data }) => {
                     setCityWeather(data)
                 })
@@ -29,7 +30,7 @@ const CityWeather = ({ geolocation, setGeolocation, finalPosition }) => {
 
         } else {
             weatherService
-                .weatherByCity(city)
+                .weatherByCity(city, units)
                 .then(({ data }) => {
                     setCityWeather(data)
                     setGeolocation([])
@@ -53,7 +54,7 @@ const CityWeather = ({ geolocation, setGeolocation, finalPosition }) => {
     //useEffect mountain component
     useEffect(() => {
         getInfoPerDay()
-    }, [city]);
+    }, [city, units]);
 
 
     let iconUrl = `https://openweathermap.org/img/wn/${cityWeather?.weather[0].icon}@4x.png`
@@ -92,7 +93,7 @@ const CityWeather = ({ geolocation, setGeolocation, finalPosition }) => {
 
                         < div className='main-info' >
                             <img src={iconUrl} alt='logo-weather' />
-                            <h1>{cityWeather.main.temp}<span className='grades'>ºC</span></h1>
+                            <h1>{cityWeather.main.temp}<span className='grades'>{units === 'metric' ? 'ºC' : 'ºF'}</span></h1>
                             <h3>{cityWeather.weather[0].main}</h3>
                             <div>
                                 <p>Description: {cityWeather.weather[0].description}</p>

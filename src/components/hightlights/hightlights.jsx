@@ -6,7 +6,7 @@ import BarStatus from '../barStatus/barStatus';
 import { CityContext } from '../../context/cityContext'
 import Loader from '../loader/loader';
 
-const Hightlights = ({ geolocation }) => {
+const Hightlights = ({ geolocation, units }) => {
 
     const [weatherData, setWeatherData] = useState();
     const { city } = useContext(CityContext);
@@ -14,12 +14,12 @@ const Hightlights = ({ geolocation }) => {
 
     useEffect(() => {
         getWeatgerPerDay()
-    }, [city]);
+    }, [city, units]);
 
     const getWeatgerPerDay = () => {
         if (city) {
             weatherService
-                .weatherByCity(city)
+                .weatherByCity(city, units)
                 .then(({ data }) => {
                     setWeatherData(data)
                 })
@@ -31,7 +31,7 @@ const Hightlights = ({ geolocation }) => {
             lat = geolocation[0];
             lon = geolocation[1];
             weatherService
-                .weatherByLatLon(lat, lon)
+                .weatherByLatLon(lat, lon, units)
                 .then(({ data }) => {
                     setWeatherData(data)
                 })
@@ -40,7 +40,7 @@ const Hightlights = ({ geolocation }) => {
         }
     }
     const statusHumedity = weatherData?.main.humidity + '%'
-
+    console.log(weatherData)
     return (
         <div>
             {
@@ -50,7 +50,7 @@ const Hightlights = ({ geolocation }) => {
                         <div className="hightlight-container">
                             <div className='wind-status'>
                                 <h3>Wind status</h3>
-                                <h1>{weatherData.wind.speed} kph</h1>
+                                <h1>{weatherData.wind.speed} {units === 'metric' ? 'm/s' : 'mph'}</h1>
                                 <div className='navigation-icon'>
                                     <NavigationIcon
                                         fontSize='small'

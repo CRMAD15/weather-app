@@ -6,19 +6,19 @@ import './forecast.css'
 import { CityContext } from '../../context/cityContext';
 import { divideDaysForescast } from '../../utils/ChangeInfoFromApi';
 
-const Forecast = ({ geolocation }) => {
+const Forecast = ({ geolocation, units }) => {
     const { city } = useContext(CityContext)
 
     const [forecastData, setForecastData] = useState([])
 
     useEffect(() => {
         forecast()
-    }, [city]);
+    }, [city, units]);
 
     const forecast = () => {
         if (city) {
             weatherService
-                .getForecast(city)
+                .getForecast(city, units)
                 .then(({ data }) => {
                     setForecastData(data)
 
@@ -32,7 +32,7 @@ const Forecast = ({ geolocation }) => {
             lat = geolocation[0];
             lon = geolocation[1];
             weatherService
-                .getForecastByCoords(lat, lon)
+                .getForecastByCoords(lat, lon, units)
                 .then(({ data }) => {
                     setForecastData(data)
                 })
@@ -44,7 +44,6 @@ const Forecast = ({ geolocation }) => {
     let realValuesOfForecast = divideDaysForescast(forecastData.list)
     return (
         <div className='days-week'>
-            <h1>{forecastData.city?.name}</h1>
             {
                 !realValuesOfForecast ?
                     <Loader /> :
@@ -53,9 +52,8 @@ const Forecast = ({ geolocation }) => {
                             <ForecastCard
                                 key={idx}
                                 forecastDay={forecastDay}
+                                units={units}
                             />
-
-
                         )
                     }
                     )
