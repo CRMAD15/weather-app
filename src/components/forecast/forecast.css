@@ -1,6 +1,25 @@
 .days-week {
     width: 100%;
     margin: 2.5rem 0;
-    display: flex;
+    display: grid;
+    grid-template-columns: 18% 18% 18% 18% 18%;
     justify-content: center;
+}
+
+/*=====================Media queries (medium devices)=====================*/
+@media screen and (max-width:1024px) {
+    .days-week {
+        display: grid;
+        grid-template-columns: 30% 30% 30%;
+        margin-left: 2rem;
+    }
+}
+
+/*=====================Media queries (small devices)=====================*/
+@media screen and (max-width:600px) {
+    .days-week {
+        display: grid;
+        grid-template-columns: 40% 40%;
+        margin-left: 0.5rem;
+    }
 }

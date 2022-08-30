@@ -73,9 +73,26 @@
 .btn-form:hover {
     background: linear-gradient(to bottom, #378de5 5%, #79bbff 100%);
     background-color: #378de5;
+    cursor: pointer;
 }
 
 .btn-form:active {
     position: relative;
     top: 1px;
+}
+
+
+
+/*=====================Media queries (medium devices)=====================*/
+@media screen and (max-width:1024px) {
+    .form-container {
+        width: 35%;
+    }
+}
+
+/*=====================Media queries (small devices)=====================*/
+@media screen and (max-width:600px) {
+    .form-container {
+        width: 100%;
+    }
 }

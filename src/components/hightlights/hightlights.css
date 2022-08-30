@@ -67,3 +67,15 @@
 .footer-hightlights span {
     color: white;
 }
+
+/*=====================Media queries (medium devices)=====================*/
+@media screen and (max-width:1024px) {
+    .main-hightlight-container>h1 {
+        font-size: 0.8rem;
+    }
+
+    .footer-hightlights {
+        margin-top: 140px;
+        margin-bottom: 0px;
+    }
+}

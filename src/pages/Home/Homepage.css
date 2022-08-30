@@ -3,3 +3,21 @@
     grid-template-columns: 30% 65%;
     gap: 20px;
 }
+
+/*=====================Media queries (medium devices)=====================*/
+@media screen and (max-width:1024px) {
+    .Homepage {
+        display: grid;
+        grid-template-columns: 35% 60%;
+        gap: 10px;
+    }
+}
+
+/* =====================Media queries (small devices) =====================*/
+@media screen and (max-width:600px) {
+    .Homepage {
+        display: grid;
+        grid-template-columns: 100%;
+
+    }
+}

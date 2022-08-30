@@ -43,20 +43,25 @@ const Forecast = ({ geolocation, units }) => {
 
     let realValuesOfForecast = divideDaysForescast(forecastData.list)
     return (
-        <div className='days-week'>
+        <div >
             {
+
                 !realValuesOfForecast ?
                     <Loader /> :
-                    realValuesOfForecast.map((forecastDay, idx) => {
-                        return (
-                            <ForecastCard
-                                key={idx}
-                                forecastDay={forecastDay}
-                                units={units}
-                            />
-                        )
-                    }
-                    )
+                    <div className='days-week'>
+
+                        {realValuesOfForecast.map((forecastDay, idx) => {
+                            return (
+                                <ForecastCard
+                                    key={idx}
+                                    forecastDay={forecastDay}
+                                    units={units}
+                                />
+                            )
+                        }
+
+                        )}
+                    </div>
 
             }
 

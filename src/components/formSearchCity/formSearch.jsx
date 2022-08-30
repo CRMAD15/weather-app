@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Button, Modal } from '@mui/material';
+import { Modal } from '@mui/material';
 import { citiesFinded } from '../../utils/functions';
 import './formSearch.css'
 import { CityContext } from '../../context/cityContext';
