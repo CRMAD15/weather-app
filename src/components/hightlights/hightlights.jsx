@@ -40,7 +40,7 @@ const Hightlights = ({ geolocation, units }) => {
         }
     }
     const statusHumedity = weatherData?.main.humidity + '%'
-    console.log(weatherData)
+
     return (
         <div>
             {
