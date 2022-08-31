@@ -43,8 +43,6 @@ const Forecast = ({ geolocation, units }) => {
 
     let realValuesOfForecast = divideDaysForescast(forecastData.list)
 
-
-    console.log('*******************', realValuesOfForecast)
     return (
         <div >
             {
